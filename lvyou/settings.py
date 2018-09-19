@@ -20,13 +20,13 @@ NEWSPIDER_MODULE = 'lvyou.spiders'
 # 查看 http://localhost:9200/blog/_search
 
 
-# ITEM_PIPELINES = {
-#     'scrapyelasticsearch.scrapyelasticsearch.ElasticSearchPipeline': 100
-# }
-#
-# ELASTICSEARCH_SERVERS = ['192.168.1.80:9200']
-# ELASTICSEARCH_INDEX = 'lvyou'
-# ELASTICSEARCH_TYPE = 'jishou'
+ITEM_PIPELINES = {
+    'scrapyelasticsearch.scrapyelasticsearch.ElasticSearchPipeline': 100
+}
+
+ELASTICSEARCH_SERVERS = ['192.168.1.80:9200']
+ELASTICSEARCH_INDEX = 'lvyou'
+ELASTICSEARCH_TYPE = 'jishou'
 
 
 

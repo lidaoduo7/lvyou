@@ -9,10 +9,12 @@ import scrapy
 
 
 class LvyouItem(scrapy.Item):
-    # define the fields for your item here like:
-    remark_acccount = scrapy.Field()
-    source = scrapy.Field()
-    scene_name = scrapy.Field()
-    remark = scrapy.Field()
-    time = scrapy.Field()
-    star = scrapy.Field()
+    source = scrapy.Field()           # 来源
+    second_source = scrapy.Field()    # 二级来源
+    remark_acccount = scrapy.Field()  # 评论数
+    scene_name = scrapy.Field()       # 景点名称
+    remarks = scrapy.Field()           # 评论，包含评论内容和评论时间字段
+    # star = scrapy.Field()           # 打分
+
+    # remark = scrapy.Field()
+    # time = scrapy.Field()
