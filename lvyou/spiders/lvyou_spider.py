@@ -33,16 +33,16 @@ class LvyouSpiderSpider(scrapy.Spider):
 
         # https://lvyou.baidu.com/qianzhougucheng/remark/?rn=15&pn=15&style=hot#remark-container
         # 翻页
-        remarks = []
-        if remark_acccount > 15:
-            for i in range(0, remark_acccount, 15):
-                next_link = response.url + "?rn=15&pn=" + str(i) + "&style=hot#remark-container"
-                remark_page = self.get_remark(requests.get(next_link))
-                remarks.extend(remark_page)
-        else:
-            remarks = self.get_remark(response)
+        # remarks = []
+        # if remark_acccount > 15:
+        #     for i in range(0, remark_acccount, 15):
+        #         next_link = response.url + "?rn=15&pn=" + str(i) + "&style=hot#remark-container"
+        #         remark_page = self.get_remark(requests.get(next_link))
+        #         remarks.extend(remark_page)
+        # else:
+        #     remarks = self.get_remark(response)
 
-        # remarks = self.get_remark(response)    #每个景点只爬取最多15条评论
+        remarks = self.get_remark(response)    #每个景点只爬取最多15条评论
         # print(type(remarks))
 
         remarks_list = []
@@ -100,7 +100,11 @@ class LvyouSpiderSpider(scrapy.Spider):
                 './/div[@class="ri-avatar-wrap"]//a[@class="ri-uname"]/text()').extract_first()  # 作者暂时爬不出来
             time = tag.xpath(
                 './/div[@class="ri-main"]//div[@class="ri-header"]//div[@class="ri-time"]/text()').extract_first()
-            remark = tag.xpath('.//div[2]/div[2]/div[1]/text()').extract_first()  # 评论内容，内部有超链接，内容缺失
+            # remark = tag.xpath('.//div[2]/div[2]/div[1]/text()').extract_first()  # 评论内容，内部有超链接，内容缺失
+            remark_lsts = tag.xpath('.//div[2]/div[2]/div[1]/text()').extract()
+            remark = ""
+            for every_remark in remark_lsts:
+                remark += every_remark
             star_text = tag.xpath(
                 './/div[@class="ri-main"]//div[@class="ri-header"]//div[@class="ri-rating"]//div/@class').extract_first()
             group = re.findall(r"ri-star ri-star-(\d)", star_text)  # 星级打分，基于AJAX，暂时爬不出来
