@@ -5,6 +5,10 @@ from lvyou.items import LvyouItem
 import re
 import requests
 
+'''
+爬取百度旅游吉首景点评论数据
+'''
+
 class LvyouSpiderSpider(scrapy.Spider):
     name = 'lvyou_spider'
     allowed_domains = ['lvyou.baidu.com']
@@ -51,13 +55,14 @@ class LvyouSpiderSpider(scrapy.Spider):
             remark = remarks[i][1]
             comments_dict = {'comment_time': remark_time, 'remark': remark}
             remarks_list.append(comments_dict)
-        item['remarks'] = remarks_list
+        item['comments'] = remarks_list
 
         scene_name = self.get_scene_name(response.url)  # 景点的名称
         source = "website"
         item['source'] = source
         second_source = "lvyou_baidu"
         item['second_source'] = second_source
+        item['url'] = response.url
         item['remark_acccount'] = remark_acccount
         item['scene_name'] = scene_name
         yield item
